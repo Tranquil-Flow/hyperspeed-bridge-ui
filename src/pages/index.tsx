@@ -1,15 +1,21 @@
-import type { NextPage } from 'next';
+import { useChains } from '../features/chains/hooks/useChains';
+import { ClaimFeesButton, DepositLiquidityForm, WithdrawLiquidityForm } from '../features/transfer/HypNativeActions';
+import { TransferTokenForm } from '../features/transfer/TransferTokenForm';
 
-import { TipCard } from '../components/tip/TipCard';
-import { TransferTokenCard } from '../features/transfer/TransferTokenCard';
+export default function Home() {
+  const { chains } = useChains();
+  const destinationChain = chains[1]; // Assuming the second chain is the destination
 
-const Home: NextPage = () => {
   return (
-    <div className="pt-4 sm:pt-8 space-y-3">
-      <TipCard />
-      <TransferTokenCard />
+    <div>
+      <h1>Hyperlane Warp Route UI Template</h1>
+      <TransferTokenForm />
+      <div>
+        <h2>HypNative Actions</h2>
+        <DepositLiquidityForm chainName={destinationChain.name} />
+        <ClaimFeesButton chainName={destinationChain.name} />
+        <WithdrawLiquidityForm chainName={destinationChain.name} />
+      </div>
     </div>
   );
-};
-
-export default Home;
+}

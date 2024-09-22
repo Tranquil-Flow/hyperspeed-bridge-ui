@@ -33,6 +33,7 @@ import {
 } from '../wallet/hooks/multiProtocol';
 import { AccountInfo } from '../wallet/hooks/types';
 
+import { HypNativeInfoSection } from './HypNativeInfoSection';
 import { useFetchMaxAmount } from './maxAmount';
 import { TransferFormValues } from './types';
 import { useRecipientBalanceWatcher } from './useBalanceWatcher';
@@ -43,9 +44,7 @@ export function TransferTokenForm() {
   const initialValues = useFormInitialValues();
   const { accounts } = useAccounts();
 
-  // Flag for if form is in input vs review mode
   const [isReview, setIsReview] = useState(false);
-  // Flag for check current type of token
   const [isNft, setIsNft] = useState(false);
 
   const validate = (values: TransferFormValues) => validateForm(values, accounts);
@@ -72,6 +71,7 @@ export function TransferTokenForm() {
             <AmountSection isNft={isNft} isReview={isReview} />
           </div>
           <RecipientSection isReview={isReview} />
+          <HypNativeInfoSection destination={values.destination} />
           <ReviewDetails visible={isReview} />
           <ButtonSection
             isReview={isReview}
